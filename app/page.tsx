@@ -77,7 +77,7 @@ export default function Home() {
               href="/register"
               className="px-8 py-3 bg-white text-orange-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors duration-200"
             >
-              Daftarkan Usaha Anda
+              Daftar sebagai Petugas BPS
             </Link>
             <Link
               href="/login"
@@ -181,18 +181,18 @@ export default function Home() {
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Siap Mendaftarkan Usaha Anda?
+            Siap Bergabung sebagai Petugas BPS?
           </h2>
           <p className="text-lg text-gray-600 mb-8">
-            Bergabunglah dengan sistem geotagging usaha Pematang Siantar dan 
-            jadilah bagian dari pemetaan ekonomi digital kota.
+            Bergabunglah sebagai petugas BPS untuk mendaftarkan dan memetakan
+            usaha-usaha di wilayah Pematang Siantar secara digital.
           </p>
           <Link
             href="/register"
             className="inline-flex items-center px-8 py-3 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors duration-200"
           >
             <UserPlus className="h-5 w-5 mr-2" />
-            Mulai Daftar Sekarang
+            Daftar Sebagai Petugas
           </Link>
         </div>
       </section>

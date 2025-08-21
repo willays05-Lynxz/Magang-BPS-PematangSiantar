@@ -58,7 +58,7 @@ export default function RegisterPage() {
             Daftar Akun Baru
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Sistem Geotagging Usaha Pematang Siantar
+            Daftar sebagai Petugas BPS Pematang Siantar
           </p>
         </div>
         
