@@ -7,19 +7,26 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Link from 'next/link'
-import { 
-  MapPin, 
-  Building2, 
-  Phone, 
-  Mail, 
-  Calendar, 
-  FileText, 
+import dynamic from 'next/dynamic'
+import {
+  MapPin,
+  Building2,
+  Phone,
+  Mail,
+  Calendar,
+  FileText,
   Network,
   Save,
   Loader,
   Map
 } from 'lucide-react'
 import { KECAMATAN_OPTIONS, KELURAHAN_OPTIONS, Business } from '@/lib/types'
+
+// Dynamically import map components to avoid SSR issues
+const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false })
+const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false })
+const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false })
+const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false })
 
 const businessSchema = z.object({
   namaUsaha: z.string().min(3, 'Nama usaha minimal 3 karakter').max(100, 'Nama usaha maksimal 100 karakter'),
