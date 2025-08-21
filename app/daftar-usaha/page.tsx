@@ -114,6 +114,18 @@ export default function DaftarUsahaPage() {
     )
   }
 
+  const createCustomIcon = () => {
+    if (typeof window === 'undefined') return null
+
+    const L = require('leaflet')
+    return L.divIcon({
+      html: `<div style="background-color: #FF6B35; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+      className: 'custom-marker',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10]
+    })
+  }
+
   const onSubmit = async (data: BusinessFormData) => {
     if (!currentLocation) {
       setLocationError('Silakan ambil lokasi terlebih dahulu')
