@@ -387,7 +387,7 @@ export default function DaftarUsahaPage() {
               <MapPin className="h-6 w-6 text-orange-600 mr-3" />
               <h2 className="text-xl font-semibold text-gray-900">Lokasi Usaha</h2>
             </div>
-            
+
             <div className="space-y-4">
               <button
                 type="button"
@@ -406,12 +406,50 @@ export default function DaftarUsahaPage() {
               </button>
 
               {currentLocation && (
-                <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-800 font-medium">✓ Lokasi berhasil diambil</p>
-                  <p className="text-green-700 text-sm">
-                    Latitude: {currentLocation.lat.toFixed(6)}, 
-                    Longitude: {currentLocation.lng.toFixed(6)}
-                  </p>
+                <div className="space-y-4">
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-green-800 font-medium">✓ Lokasi berhasil diambil</p>
+                    <p className="text-green-700 text-sm">
+                      Latitude: {currentLocation.lat.toFixed(6)},
+                      Longitude: {currentLocation.lng.toFixed(6)}
+                    </p>
+                  </div>
+
+                  {/* Map Display */}
+                  <div className="border border-gray-200 rounded-lg overflow-hidden">
+                    <div style={{ height: '300px', width: '100%' }}>
+                      {typeof window !== 'undefined' && (
+                        <MapContainer
+                          center={[currentLocation.lat, currentLocation.lng]}
+                          zoom={16}
+                          style={{ height: '100%', width: '100%' }}
+                          className="rounded-lg"
+                        >
+                          <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                          />
+
+                          <Marker
+                            position={[currentLocation.lat, currentLocation.lng]}
+                            icon={createCustomIcon()}
+                          >
+                            <Popup className="custom-popup">
+                              <div className="p-2">
+                                <h3 className="font-bold text-gray-900 mb-2">
+                                  📍 Lokasi Usaha
+                                </h3>
+                                <p className="text-sm text-gray-700">
+                                  Lat: {currentLocation.lat.toFixed(6)}<br/>
+                                  Lng: {currentLocation.lng.toFixed(6)}
+                                </p>
+                              </div>
+                            </Popup>
+                          </Marker>
+                        </MapContainer>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
