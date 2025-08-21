@@ -7,7 +7,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:setup": "node database/scripts/setup-laragon.bat",
+    "db:migrate": "npm run db:migrate:001 && npm run db:migrate:002 && npm run db:migrate:003 && npm run db:migrate:004",
+    "db:migrate:001": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/migrations/001_initial_schema.sql",
+    "db:migrate:002": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/migrations/002_create_indexes.sql",
+    "db:migrate:003": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/migrations/003_create_triggers.sql",
+    "db:migrate:004": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/migrations/004_seed_data.sql",
+    "db:functions": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/functions/spatial_functions.sql",
+    "db:views": "psql -h localhost -U postgres -d geotagging_usaha_dev -f database/views/business_analytics.sql",
+    "db:seed": "npm run db:migrate:004",
+    "db:reset": "psql -h localhost -U postgres -c \"DROP DATABASE IF EXISTS geotagging_usaha_dev; CREATE DATABASE geotagging_usaha_dev;\" && npm run db:migrate && npm run db:functions && npm run db:views",
+    "db:backup": "pg_dump -h localhost -U postgres geotagging_usaha_dev > database/backups/backup_$(date +%Y%m%d_%H%M%S).sql",
+    "db:test": "psql -h localhost -U postgres -d geotagging_usaha_dev -c \"SELECT version(); SELECT COUNT(*) as users FROM users; SELECT COUNT(*) as businesses FROM businesses;\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -34,7 +46,7 @@
     "tailwindcss": "^3.0.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["geotagging", "business", "pematangsiantar", "mapping"],
-  "author": "",
+  "keywords": ["geotagging", "business", "pematangsiantar", "mapping", "laragon", "postgresql"],
+  "author": "BPS Pematang Siantar",
   "license": "MIT"
 }
