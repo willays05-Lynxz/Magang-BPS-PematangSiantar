@@ -15,7 +15,7 @@ Pastikan telah menginstall:
 
 ```bash
 # Clone repository dari GitHub
-git clone https://github.com/[username]/magang-bps-pematangsiantar.git
+git clone https://github.com/willays05-Lynxz/magang-bps-pematangsiantar.git
 
 # Masuk ke direktori project
 cd magang-bps-pematangsiantar
