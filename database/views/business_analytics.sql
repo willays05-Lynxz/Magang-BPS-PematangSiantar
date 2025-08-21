@@ -99,28 +99,6 @@ WHERE u.role = 'user'
 GROUP BY u.id, u.name, u.email, u.last_login
 ORDER BY total_usaha_didaftar DESC;
 
--- View usaha dengan kategori
-CREATE OR REPLACE VIEW v_businesses_with_categories AS
-SELECT 
-    b.id,
-    b.nama_usaha,
-    b.nama_komersil,
-    b.alamat,
-    b.kecamatan,
-    b.kelurahan,
-    b.status,
-    b.created_at,
-    STRING_AGG(
-        CASE WHEN bcm.is_primary THEN '⭐ ' ELSE '' END || 
-        bc.kode_kbli || ' - ' || bc.nama_kategori, 
-        '; '
-    ) as kategori_usaha
-FROM businesses b
-LEFT JOIN business_category_mappings bcm ON b.id = bcm.business_id
-LEFT JOIN business_categories bc ON bcm.category_id = bc.id
-GROUP BY b.id, b.nama_usaha, b.nama_komersil, b.alamat, b.kecamatan, b.kelurahan, b.status, b.created_at
-ORDER BY b.created_at DESC;
-
 -- View heatmap data untuk peta
 CREATE OR REPLACE VIEW v_business_heatmap AS
 SELECT 
@@ -167,6 +145,32 @@ WHERE us.is_active = TRUE
 AND us.expires_at > CURRENT_TIMESTAMP
 ORDER BY us.last_activity DESC;
 
+-- View top performing kecamatan
+CREATE OR REPLACE VIEW v_top_kecamatan_performance AS
+SELECT 
+    kecamatan,
+    COUNT(*) as total_usaha,
+    COUNT(CASE WHEN status = 'active' THEN 1 END) as usaha_aktif,
+    ROUND(COUNT(CASE WHEN status = 'active' THEN 1 END) * 100.0 / COUNT(*), 2) as persentase_aktif,
+    COUNT(CASE WHEN created_at >= CURRENT_DATE - INTERVAL '30 days' THEN 1 END) as usaha_baru_bulan_ini,
+    COUNT(DISTINCT user_id) as jumlah_petugas_aktif
+FROM businesses
+GROUP BY kecamatan
+ORDER BY usaha_aktif DESC, persentase_aktif DESC;
+
+-- View monthly business registration trend
+CREATE OR REPLACE VIEW v_monthly_registration_trend AS
+SELECT 
+    DATE_TRUNC('month', created_at) as bulan,
+    COUNT(*) as total_pendaftaran,
+    COUNT(CASE WHEN status = 'active' THEN 1 END) as yang_disetujui,
+    COUNT(CASE WHEN status = 'pending' THEN 1 END) as masih_pending,
+    COUNT(CASE WHEN status = 'rejected' THEN 1 END) as ditolak
+FROM businesses
+WHERE created_at >= CURRENT_DATE - INTERVAL '12 months'
+GROUP BY DATE_TRUNC('month', created_at)
+ORDER BY bulan DESC;
+
 -- Comments
 COMMENT ON VIEW v_business_summary_by_kecamatan IS 'Summary statistik usaha per kecamatan';
 COMMENT ON VIEW v_business_summary_by_kelurahan IS 'Summary statistik usaha per kelurahan';
@@ -174,7 +178,8 @@ COMMENT ON VIEW v_business_by_year IS 'Distribusi usaha berdasarkan tahun berdir
 COMMENT ON VIEW v_latest_businesses IS 'Daftar 10 usaha terbaru yang didaftarkan';
 COMMENT ON VIEW v_businesses_pending_verification IS 'Usaha yang menunggu verifikasi admin';
 COMMENT ON VIEW v_petugas_statistics IS 'Statistik kinerja petugas BPS';
-COMMENT ON VIEW v_businesses_with_categories IS 'Usaha beserta kategori KBLI-nya';
 COMMENT ON VIEW v_business_heatmap IS 'Data untuk heatmap distribusi usaha di peta';
 COMMENT ON VIEW v_audit_summary IS 'Summary aktivitas audit log';
 COMMENT ON VIEW v_active_sessions IS 'Daftar session user yang sedang aktif';
+COMMENT ON VIEW v_top_kecamatan_performance IS 'Performa kecamatan berdasarkan jumlah usaha aktif';
+COMMENT ON VIEW v_monthly_registration_trend IS 'Trend pendaftaran usaha bulanan';

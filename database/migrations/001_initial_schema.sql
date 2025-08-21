@@ -81,30 +81,6 @@ CREATE TABLE businesses (
     ))
 );
 
--- Business Categories table
-CREATE TABLE business_categories (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    kode_kbli VARCHAR(10) NOT NULL UNIQUE,
-    nama_kategori VARCHAR(200) NOT NULL,
-    deskripsi TEXT,
-    parent_id UUID REFERENCES business_categories(id),
-    level INTEGER NOT NULL DEFAULT 1,
-    is_active BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-);
-
--- Business Category Mappings table
-CREATE TABLE business_category_mappings (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    business_id UUID NOT NULL REFERENCES businesses(id) ON DELETE CASCADE,
-    category_id UUID NOT NULL REFERENCES business_categories(id) ON DELETE CASCADE,
-    is_primary BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    
-    UNIQUE(business_id, category_id)
-);
-
 -- User Sessions table
 CREATE TABLE user_sessions (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

@@ -36,17 +36,6 @@ CREATE INDEX IF NOT EXISTS idx_businesses_kelurahan_status ON businesses(kelurah
 CREATE INDEX IF NOT EXISTS idx_businesses_user_status ON businesses(user_id, status);
 CREATE INDEX IF NOT EXISTS idx_businesses_tahun_status ON businesses(tahun_berdiri, status);
 
--- Business Categories indexes
-CREATE INDEX IF NOT EXISTS idx_business_categories_kode_kbli ON business_categories(kode_kbli);
-CREATE INDEX IF NOT EXISTS idx_business_categories_parent_id ON business_categories(parent_id);
-CREATE INDEX IF NOT EXISTS idx_business_categories_level ON business_categories(level);
-CREATE INDEX IF NOT EXISTS idx_business_categories_is_active ON business_categories(is_active);
-
--- Business Category Mappings indexes
-CREATE INDEX IF NOT EXISTS idx_business_category_mappings_business_id ON business_category_mappings(business_id);
-CREATE INDEX IF NOT EXISTS idx_business_category_mappings_category_id ON business_category_mappings(category_id);
-CREATE INDEX IF NOT EXISTS idx_business_category_mappings_is_primary ON business_category_mappings(is_primary);
-
 -- User Sessions indexes
 CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_user_sessions_session_token ON user_sessions(session_token);

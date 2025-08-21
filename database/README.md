@@ -46,24 +46,14 @@ Tabel data usaha yang didaftarkan
 - Foreign Key: `user_id` → users(id)
 - Fields: nama_usaha, alamat, koordinat, status, dll
 - Constraints: validasi koordinat, email, kode SLS
+- Fields: nama_usaha, alamat, koordinat, status, deskripsi_kegiatan
 
-#### 3. **business_categories**
-Tabel kategori usaha berdasarkan KBLI
-- Primary Key: `id` (UUID)
-- Hierarchical: support parent-child relationship
-- Fields: kode_kbli, nama_kategori, level
-
-#### 4. **business_category_mappings**
-Junction table antara usaha dan kategori
-- Many-to-many relationship
-- Support primary category flag
-
-#### 5. **user_sessions**
+#### 3. **user_sessions**
 Tabel session management
 - Auto cleanup expired sessions
 - Fields: session_token, refresh_token, expires_at
 
-#### 6. **audit_logs**
+#### 4. **audit_logs**
 Tabel audit trail aktivitas sistem
 - JSONB fields untuk old_values dan new_values
 - IP address dan user agent tracking
@@ -231,8 +221,8 @@ Semua operasi CUD (Create, Update, Delete) pada tabel utama dicatat dalam audit_
 - Password: `user123`
 - Role: user
 
-### KBLI Categories
-Database sudah include kategori KBLI Level 1-3 yang umum digunakan untuk klasifikasi usaha.
+### Sample Data
+Database sudah include data sample usaha dari berbagai kecamatan di Pematang Siantar untuk testing.
 
 ## 📝 Catatan Penting
 
