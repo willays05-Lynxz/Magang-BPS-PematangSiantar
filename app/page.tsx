@@ -146,7 +146,7 @@ export default function Home() {
                 Multi-User Access
               </h3>
               <p className="text-gray-600">
-                Akses berbeda untuk admin dan pengguna biasa dengan kontrol yang tepat
+                Akses berbeda untuk admin dan petugas BPS dengan kontrol yang tepat
               </p>
             </div>
 

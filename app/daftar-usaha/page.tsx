@@ -152,7 +152,7 @@ export default function DaftarUsahaPage() {
                 Daftarkan Usaha Baru
               </h1>
               <p className="text-gray-600">
-                Lengkapi form berikut untuk mendaftarkan usaha Anda
+                Lengkapi form berikut untuk mendaftarkan usaha yang akan didata
               </p>
             </div>
             <Link
