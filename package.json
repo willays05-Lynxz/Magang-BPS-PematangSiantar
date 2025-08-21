@@ -1,0 +1,17 @@
+{
+  "name": "magang-bps-pematangsiantar",
+  "version": "1.0.0",
+  "description": "Sistem Geotagging Usaha di PematangSiantar",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run start",
+    "start": "node server.js",
+    "build": "echo 'Build command not configured yet'",
+    "test": "echo 'Tests not configured yet'"
+  },
+  "keywords": ["geotagging", "bps", "pematangsiantar"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
