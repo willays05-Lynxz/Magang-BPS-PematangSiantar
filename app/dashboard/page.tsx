@@ -136,7 +136,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-gray-900">
-                  {user.role === 'admin' ? 'Admin Dashboard' : 'Dashboard Usaha'}
+                  {user.role === 'admin' ? 'Admin Dashboard' : 'Dashboard Petugas BPS'}
                 </h1>
                 <p className="text-sm text-gray-600">
                   Selamat datang, {user.name}
@@ -240,11 +240,11 @@ export default function DashboardPage() {
               </div>
               <div className="ml-4">
                 <p className="text-sm text-gray-600">
-                  {user.role === 'admin' ? 'Total Pengguna' : 'Usaha Saya'}
+                  {user.role === 'admin' ? 'Total Pengguna' : 'Usaha yang Didaftarkan'}
                 </p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {user.role === 'admin' ? 
-                    JSON.parse(localStorage.getItem('users') || '[]').length + 1 : 
+                  {user.role === 'admin' ?
+                    JSON.parse(localStorage.getItem('users') || '[]').length + 1 :
                     businesses.filter(b => b.userId === user.id).length
                   }
                 </p>
@@ -336,18 +336,18 @@ export default function DashboardPage() {
             <div className="text-center py-12">
               <Building2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-2">
-                {businesses.length === 0 ? 'Belum ada usaha terdaftar' : 'Tidak ada usaha ditemukan'}
+                {businesses.length === 0 ? 'Belum ada usaha yang didaftarkan' : 'Tidak ada usaha ditemukan'}
               </h3>
               <p className="text-gray-600 mb-4">
-                {businesses.length === 0 
-                  ? 'Mulai dengan mendaftarkan usaha pertama Anda'
+                {businesses.length === 0
+                  ? 'Mulai dengan mendaftarkan usaha pertama sebagai petugas BPS'
                   : 'Coba ubah kriteria pencarian atau filter'
                 }
               </p>
               {businesses.length === 0 && (
                 <Link href="/daftar-usaha" className="btn-primary">
                   <Plus className="h-5 w-5 mr-2" />
-                  Daftar Usaha Pertama
+                  Daftarkan Usaha Pertama
                 </Link>
               )}
             </div>
