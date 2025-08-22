@@ -2,14 +2,14 @@
 // Konfigurasi khusus untuk environment Laragon
 
 export const LARAGON_CONFIG = {
-  // Laragon PostgreSQL default settings
+  // Laragon MySQL default settings
   development: {
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     database: 'geotagging_usaha_dev',
-    username: 'postgres',
+    username: 'root',
     password: '', // Laragon biasanya tidak menggunakan password
-    dialect: 'postgresql' as const,
+    dialect: 'mysql' as const,
     ssl: false,
     pool: {
       max: 5,
@@ -34,11 +34,11 @@ export const LARAGON_CONFIG = {
   // Test database untuk Laragon
   test: {
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     database: 'geotagging_usaha_test',
-    username: 'postgres',
+    username: 'root',
     password: '',
-    dialect: 'postgresql' as const,
+    dialect: 'mysql' as const,
     ssl: false,
     pool: {
       max: 5,
@@ -52,7 +52,7 @@ export const LARAGON_CONFIG = {
 
 // Database connection string untuk Laragon
 export const getLaragonConnectionString = (dbName: string = 'geotagging_usaha_dev') => {
-  return `postgresql://postgres@localhost:5432/${dbName}`
+  return `mysql://root@localhost:3306/${dbName}`
 }
 
 // Check if running in Laragon environment
@@ -71,11 +71,11 @@ export const getDatabaseConfig = () => {
   // Fallback to environment variables
   return {
     host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '5432'),
+    port: parseInt(process.env.DB_PORT || '3306'),
     database: process.env.DB_NAME || 'geotagging_usaha_dev',
-    username: process.env.DB_USER || 'postgres',
+    username: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    dialect: 'postgresql' as const,
+    dialect: 'mysql' as const,
     ssl: false,
     pool: {
       max: 5,
